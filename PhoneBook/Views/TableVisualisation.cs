@@ -8,6 +8,8 @@ internal class TableVisualisation
     internal static void PrintUsersList(List<User> list)
     {
         var table = new Table();
+        table.Border(TableBorder.Heavy);
+        table.ShowRowSeparators();
         table.AddColumns("Name", "Email", "Phone number", "Address");
 
         foreach (var user in list)
@@ -16,15 +18,26 @@ internal class TableVisualisation
         }
 
         AnsiConsole.Write(table);
+
+        AnsiConsole.MarkupLine("Press any key to continue: ");
+        Console.ReadKey();
     }
 
     internal static void ShowUser(User user)
     {
-        var table = new Table();
-        table.AddColumns("Name", "Email", "Phone number", "Address");
+        Panel panel = new(
+@$"Id: {user.Id}
+Name: {user.Name}
+Email: {user.Email}
+Phone Number: {user.PhoneNumber}
+Address: {user.Address}");
 
-        table.AddRow(user.Name, user.Email, user.PhoneNumber, user.Address ?? "-");
+        panel.Header = new("User Info");
+        panel.Padding = new(2);
 
-        AnsiConsole.Write(table);
+        AnsiConsole.Write(panel);
+
+        AnsiConsole.MarkupLine("Press any key to continue: ");
+        Console.ReadKey();
     }
 }

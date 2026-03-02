@@ -1,26 +1,43 @@
-﻿using PhoneBook.Models;
-using Spectre.Console;
+﻿using Spectre.Console;
+using static PhoneBook.Models.Enums;
 
 namespace PhoneBook.Views;
 internal class UserInterface
 {
-    internal void MainMenu()
+    internal static void MainMenu()
     {
-        bool isAppRunning = true;
+		bool isAppRunning = true;
 
-        while (isAppRunning)
-        {
-            var choice = AnsiConsole.Prompt(
-                new SelectionPrompt<Enums.MenuOptions>()
-                .Title("Choose your option")
-                .AddChoices(Enum.GetValues<Enums.MenuOptions>()));
+		while (isAppRunning)
+		{
+			Console.Clear();
 
-            switch (choice)
-            {
-                case Enums.MenuOptions.AddUser:
-                    UserService.AddUser();
-                    break;
-            }
-        }
-    }
+			var option = AnsiConsole.Prompt(
+				new SelectionPrompt<MenuOptions>()
+				.Title("Choose your menu option: ")
+				.AddChoices(Enum.GetValues<MenuOptions>()));
+
+			switch (option)
+			{
+				case MenuOptions.AddUser:
+					UserService.AddUser();
+					break;
+				case MenuOptions.RemoveUser:
+					UserService.RemoveUser();
+					break;
+				case MenuOptions.UpdateUser:
+					UserService.UpdateUser();
+					break;
+				case MenuOptions.GetUser:
+					UserService.GetUser();
+					break;
+				case MenuOptions.GetAllUsers:
+					UserService.GetAll();
+					break;
+				case MenuOptions.Exit:
+					isAppRunning = false;
+					break;
+			}
+		}
+	}
 }

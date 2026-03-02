@@ -30,14 +30,14 @@ internal class Validator
         return phoneNumber;
     }
 
-    internal static string GetStringInput()
+    internal static string GetStringInput(string msg)
     {
         var input = AnsiConsole.Prompt(
-            new TextPrompt<string>("Enter your input: ")
+            new TextPrompt<string>(msg)
             .Validate(x =>
             x.IsNullOrEmpty()
-            ? ValidationResult.Success()
-            : ValidationResult.Error("Enter a valid string input")));
+            ? ValidationResult.Error("Enter a valid string input")
+            : ValidationResult.Success()));
 
         return input;
     }
