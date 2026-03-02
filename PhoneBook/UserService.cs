@@ -1,5 +1,6 @@
 ﻿using PhoneBook.Controllers;
 using PhoneBook.Models;
+using PhoneBook.Views;
 
 namespace PhoneBook;
 
@@ -22,5 +23,23 @@ internal class UserService
         };
 
         userController.Add(newUser);
+    }
+
+    internal void GetAll()
+    {
+        var list = userController.GetAll();
+        TableVisualisation.PrintUsersList(list);
+    }
+
+    internal User? GetUserById(int id)
+    {
+        using var db = new PhoneBookContext();
+        User? user = db.Users.SingleOrDefault(x => x.Id == id);
+
+        return user;
+    }
+    internal void RemoveUser()
+    {
+
     }
 }

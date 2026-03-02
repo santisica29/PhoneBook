@@ -31,7 +31,7 @@ internal class UserController
         return list;
     }
 
-    internal User? GetUser(int id)
+    internal User? GetUserById(int id)
     {
         using var db = new PhoneBookContext();
         User? user = db.Users.SingleOrDefault(x => x.Id == id);
