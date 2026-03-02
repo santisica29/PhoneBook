@@ -1,13 +1,14 @@
 ﻿using PhoneBook.Controllers;
 using PhoneBook.Models;
 using PhoneBook.Views;
+using Spectre.Console;
 
 namespace PhoneBook;
 
 internal class UserService
 {
-    private UserController userController = new UserController(); 
-    internal void AddUser()
+    private static UserController userController = new UserController(); 
+    internal static void AddUser()
     {
         var name = Validator.GetStringInput();
         var email = Validator.GetEmailInput();
@@ -25,21 +26,33 @@ internal class UserService
         userController.Add(newUser);
     }
 
-    internal void GetAll()
+    internal static void GetAll()
     {
         var list = userController.GetAll();
         TableVisualisation.PrintUsersList(list);
     }
 
-    internal User? GetUserById(int id)
+    internal static void GetUser()
     {
-        using var db = new PhoneBookContext();
-        User? user = db.Users.SingleOrDefault(x => x.Id == id);
+        var list = userController.GetAll();
 
-        return user;
+        var choice = AnsiConsole.Prompt(
+            new SelectionPrompt<User>()
+            .Title("Choose your user: ")
+            .UseConverter(u => u.Name)
+            .AddChoices(list));
+
+        var user = list.Single(x => x.Id == choice.Id);
+        
+        TableVisualisation.ShowUser(user);
     }
-    internal void RemoveUser()
+    internal static void RemoveUser()
     {
 
+    }
+
+    internal static void UpdateUser()
+    {
+        throw new NotImplementedException();
     }
 }

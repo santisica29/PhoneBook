@@ -1,7 +1,7 @@
 ﻿namespace PhoneBook.Models;
 internal class Enums
 {
-    internal enum MenuOption
+    internal enum MenuOptions
     {
         AddUser,
         RemoveUser,

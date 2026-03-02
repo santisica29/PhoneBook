@@ -17,4 +17,14 @@ internal class TableVisualisation
 
         AnsiConsole.Write(table);
     }
+
+    internal static void ShowUser(User user)
+    {
+        var table = new Table();
+        table.AddColumns("Name", "Email", "Phone number", "Address");
+
+        table.AddRow(user.Name, user.Email, user.PhoneNumber, user.Address ?? "-");
+
+        AnsiConsole.Write(table);
+    }
 }

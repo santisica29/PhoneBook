@@ -11,13 +11,13 @@ internal class UserInterface
         while (isAppRunning)
         {
             var choice = AnsiConsole.Prompt(
-                new SelectionPrompt<Enums.MenuOption>()
+                new SelectionPrompt<Enums.MenuOptions>()
                 .Title("Choose your option")
-                .AddChoices(Enum.GetValues<Enums.MenuOption>()));
+                .AddChoices(Enum.GetValues<Enums.MenuOptions>()));
 
             switch (choice)
             {
-                case Enums.MenuOption.AddUser:
+                case Enums.MenuOptions.AddUser:
                     UserService.AddUser();
                     break;
             }
