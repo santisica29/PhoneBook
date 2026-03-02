@@ -12,11 +12,11 @@ internal class TableVisualisation
             .BorderColor(Color.Blue)
             .ShowRowSeparators();
 
-        table.AddColumns("Name", "Email", "Phone number", "Address");
+        table.AddColumns("Name", "Category", "Email", "Phone number", "Address");
 
         foreach (var user in list)
         {
-            table.AddRow(user.Name, user.Email, user.PhoneNumber, user.Address ?? "-");
+            table.AddRow(user.Name, user.Category.ToString(), user.Email, user.PhoneNumber, user.Address ?? "-");
         }
 
         AnsiConsole.Write(table);
@@ -30,6 +30,7 @@ internal class TableVisualisation
         Panel panel = new(
 @$"Id: {user.Id}
 Name: {user.Name}
+Category: {user.Category}
 Email: {user.Email}
 Phone Number: {user.PhoneNumber}
 Address: {user.Address}");

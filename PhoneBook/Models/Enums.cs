@@ -11,4 +11,12 @@ internal class Enums
         SendAnEmail,
         Exit
     }
+
+    internal enum UserCategories
+    {
+        Family,
+        Friends,
+        Work,
+        Other
+    }
 }

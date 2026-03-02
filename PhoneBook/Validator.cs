@@ -1,11 +1,21 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Spectre.Console;
 using System.Net.Mail;
+using static PhoneBook.Models.Enums;
 
 namespace PhoneBook;
 
 internal class Validator
 {
+    internal static UserCategories ChooseCategory()
+    {
+        var category = AnsiConsole.Prompt(new SelectionPrompt<UserCategories>()
+            .Title("Choose the category")
+            .AddChoices(Enum.GetValues<UserCategories>()));
+
+        return category;
+    }
+
     internal static string GetEmailInput()
     {
         var email = AnsiConsole.Prompt(

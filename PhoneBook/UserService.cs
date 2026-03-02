@@ -16,6 +16,7 @@ internal class UserService
         var email = Validator.GetEmailInput();
         var phoneNumber = Validator.GetPhoneNumber();
         var address = Validator.GetStringInput("Enter your address: ");
+        var category = Validator.ChooseCategory();
 
         var newUser = new User()
         {
@@ -23,6 +24,7 @@ internal class UserService
             Email = email,
             PhoneNumber = phoneNumber,
             Address = address,
+            Category = category,
         };
 
         userController.Add(newUser);
@@ -88,6 +90,10 @@ internal class UserService
             ? Validator.GetStringInput("Enter your new address: ")
             : user.Address;
 
+        user.Category = AnsiConsole.Confirm("Update user's category? ")
+            ? Validator.ChooseCategory()
+            : user.Category;
+
         userController.Update(user);
     }
 
@@ -124,7 +130,7 @@ internal class UserService
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Santi", email));
             message.To.Add(new MailboxAddress($"{user.Name}", $"{user.Email}"));
-            message.Subject = subject;
+            message.Subject = $"{subject} [{user.Category}]";
 
             message.Body = new TextPart("plain")
             {
