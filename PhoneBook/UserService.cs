@@ -1,4 +1,6 @@
-﻿using PhoneBook.Controllers;
+﻿using MailKit.Net.Smtp;
+using MimeKit;
+using PhoneBook.Controllers;
 using PhoneBook.Models;
 using PhoneBook.Views;
 using Spectre.Console;
@@ -107,5 +109,45 @@ internal class UserService
         var user = list.Single(x => x.Id == choice.Id);
 
         return user;
+    }
+
+    internal static void SendEmail()
+    {
+        try
+        {
+            AnsiConsole.MarkupLine("Select the user you want to send en email to");
+            var user = SelectUser();
+            var subject = Validator.GetStringInput("Select the [red]subject[/] of the email: ");
+            var body = Validator.GetStringInput("Select the [blue]body[/] of the email: ");
+
+            var email = "santisica29@gmail.com";
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Santi", email));
+            message.To.Add(new MailboxAddress($"{user.Name}", $"{user.Email}"));
+            message.Subject = subject;
+
+            message.Body = new TextPart("plain")
+            {
+                Text = body
+            };
+
+            using var client = new SmtpClient();
+
+            client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+
+            // Note: only needed if the SMTP server requires authentication
+            client.Authenticate(email, "iles jnrv fxfv hgqh ");
+
+            client.Send(message);
+
+            AnsiConsole.MarkupLine("[green]Email sent successfully![/]");
+            client.Disconnect(true);
+
+            Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            AnsiConsole.MarkupLine(ex.Message);
+        }
     }
 }

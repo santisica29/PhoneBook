@@ -8,6 +8,7 @@ internal class Enums
         UpdateUser,
         GetUser,
         GetAllUsers,
+        SendAnEmail,
         Exit
     }
 }

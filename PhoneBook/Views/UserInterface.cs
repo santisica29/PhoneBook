@@ -34,6 +34,9 @@ internal class UserInterface
 				case MenuOptions.GetAllUsers:
 					UserService.GetAll();
 					break;
+				case MenuOptions.SendAnEmail:
+					UserService.SendEmail();
+					break;
 				case MenuOptions.Exit:
 					isAppRunning = false;
 					break;

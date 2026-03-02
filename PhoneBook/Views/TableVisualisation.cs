@@ -7,9 +7,11 @@ internal class TableVisualisation
 {
     internal static void PrintUsersList(List<User> list)
     {
-        var table = new Table();
-        table.Border(TableBorder.Heavy);
-        table.ShowRowSeparators();
+        var table = new Table()
+            .Border(TableBorder.Heavy)
+            .BorderColor(Color.Blue)
+            .ShowRowSeparators();
+
         table.AddColumns("Name", "Email", "Phone number", "Address");
 
         foreach (var user in list)
