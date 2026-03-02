@@ -1,6 +1,5 @@
 ﻿using PhoneBook.Controllers;
 using PhoneBook.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace PhoneBook;
 
