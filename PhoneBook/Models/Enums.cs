@@ -8,8 +8,9 @@ internal class Enums
         UpdateUser,
         GetUser,
         GetAllUsers,
+        GetUsersByCategory,
         SendAnEmail,
-        Exit
+        Exit,
     }
 
     internal enum UserCategories

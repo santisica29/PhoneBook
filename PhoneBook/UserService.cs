@@ -49,6 +49,15 @@ internal class UserService
 
         TableVisualisation.ShowUser(user);
     }
+
+    internal static void GetUsersBycategory()
+    {
+        var category = Validator.ChooseCategory();
+
+        var list = userController.GetByCategories(category);
+
+        TableVisualisation.PrintUsersList(list);
+    }
     internal static void RemoveUser()
     {
         var user = SelectUser();

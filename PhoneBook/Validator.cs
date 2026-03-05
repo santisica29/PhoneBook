@@ -10,7 +10,7 @@ internal class Validator
     internal static UserCategories ChooseCategory()
     {
         var category = AnsiConsole.Prompt(new SelectionPrompt<UserCategories>()
-            .Title("Choose the category")
+            .Title("Choose the category: ")
             .AddChoices(Enum.GetValues<UserCategories>()));
 
         return category;

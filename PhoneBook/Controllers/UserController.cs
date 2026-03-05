@@ -1,4 +1,6 @@
-﻿using PhoneBook.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PhoneBook.Models;
+using static PhoneBook.Models.Enums;
 
 namespace PhoneBook.Controllers;
 internal class UserController
@@ -48,5 +50,16 @@ internal class UserController
         //UPDATE Users
         //SET ... Values = newValues
         //WHERE Id = user.Id
+    }
+
+    internal List<User> GetByCategories(UserCategories category)
+    {
+        using var db = new PhoneBookContext();
+
+        List<User> list = db.Users
+            .Where(x => x.Category == category)
+            .ToList();
+
+        return list;
     }
 }
