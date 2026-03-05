@@ -1,4 +1,6 @@
-﻿namespace PhoneBook.UnitTests;
+﻿using Microsoft.IdentityModel.Tokens;
+
+namespace PhoneBook.UnitTests;
 
 public class ValidatorTest
 {
@@ -38,5 +40,23 @@ public class ValidatorTest
         var isPhoneNumberValid = Validator.ValidatePhoneNumber(phoneNumber);
 
         Assert.That(isPhoneNumberValid, Is.EqualTo(expectedResult));
+    }
+
+    private static readonly object[] StringCases = {
+        new TestCaseData(" ", false),
+        new TestCaseData("", false),
+        new TestCaseData("09984546", true),
+        new TestCaseData("hola ", true),
+        new TestCaseData(" hola", true),
+        new TestCaseData(" phone ", true),
+    };
+
+    [TestCaseSource(nameof(StringCases))]
+    public void GivenStringInput_WhenCheckIfInputIsCompatible_ThenValueIsCorrect(string input, bool expectedResult)
+    {
+        //var email = Console.ReadLine();
+        var isStringValid = Validator.ValidateString(input);
+
+        Assert.That(isStringValid, Is.EqualTo(expectedResult));
     }
 }

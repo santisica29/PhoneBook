@@ -45,11 +45,11 @@ public static class Validator
         var input = AnsiConsole.Prompt(
             new TextPrompt<string>(msg)
             .Validate(x =>
-            x.IsNullOrEmpty()
+            ValidateString(x)
             ? ValidationResult.Error("Enter a valid string input")
             : ValidationResult.Success()));
 
-        return input;
+        return input.Trim();
     }
 
     public static bool ValidateEmail(string email)
@@ -74,6 +74,11 @@ public static class Validator
             return true;
 
         return false;
+    }
+
+    public static bool ValidateString(string input)
+    {
+        return !string.IsNullOrWhiteSpace(input);
     }
 
 }
