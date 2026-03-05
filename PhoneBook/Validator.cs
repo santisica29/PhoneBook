@@ -5,9 +5,9 @@ using static PhoneBook.Models.Enums;
 
 namespace PhoneBook;
 
-internal class Validator
+public static class Validator
 {
-    internal static UserCategories ChooseCategory()
+    public static UserCategories ChooseCategory()
     {
         var category = AnsiConsole.Prompt(new SelectionPrompt<UserCategories>()
             .Title("Choose the category: ")
@@ -16,31 +16,31 @@ internal class Validator
         return category;
     }
 
-    internal static string GetEmailInput()
+    public static string GetEmailInput()
     {
         var email = AnsiConsole.Prompt(
             new TextPrompt<string>("Enter your [green]email[/]: ")
             .Validate(input =>
-            MailAddress.TryCreate(input, out _)
+            ValidatePhoneNumber(input)
             ? ValidationResult.Success()
             : ValidationResult.Error("Please enter a valid [red]email[/]")));
-            
+
         return email;
     }
 
-    internal static string GetPhoneNumber()
+    public static string GetPhoneNumber()
     {
         var phoneNumber = AnsiConsole.Prompt(
             new TextPrompt<string>("Enter your [blue]phone number[/]: ")
             .Validate(input =>
-            input.All(c => char.IsDigit(c) || c == '+')
+            ValidatePhoneNumber(input)
             ? ValidationResult.Success()
             : ValidationResult.Error("Please enter a valid [red]number[/]")));
 
         return phoneNumber;
     }
 
-    internal static string GetStringInput(string msg)
+    public static string GetStringInput(string msg)
     {
         var input = AnsiConsole.Prompt(
             new TextPrompt<string>(msg)
@@ -51,4 +51,29 @@ internal class Validator
 
         return input;
     }
+
+    public static bool ValidateEmail(string email)
+    {
+        return MailAddress.TryCreate(email, out _);
+    }
+
+    public static bool ValidatePhoneNumber(string phoneNumber)
+    {
+        bool hasMoreThanOne = phoneNumber.Count('+') > 1;
+        bool hasOne = phoneNumber.Count('+') == 1;
+        bool startsWith = phoneNumber.StartsWith('+');
+        bool isPhoneValid = phoneNumber.Trim().All(c => char.IsDigit(c) || c == '+');
+
+        if (hasMoreThanOne)
+            return false;
+
+        if (hasOne && !startsWith)
+            return false;
+
+        if (isPhoneValid || (isPhoneValid && hasOne && startsWith))
+            return true;
+
+        return false;
+    }
+
 }
