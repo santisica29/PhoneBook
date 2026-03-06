@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using Microsoft.IdentityModel.Tokens;
 using MimeKit;
 using PhoneBook.Controllers;
 using PhoneBook.Models;
@@ -10,6 +11,8 @@ namespace PhoneBook;
 internal class UserService
 {
     private static UserController userController = new UserController();
+    private static string gmailAddress = string.Empty;
+    private static string gmailKey = string.Empty;
     internal static void AddUser()
     {
         var name = Validator.GetStringInput("Enter your name: ");
@@ -130,14 +133,39 @@ internal class UserService
     {
         try
         {
+            AnsiConsole.MarkupLine(@$"You can send an email with a Gmail account.
+For this to work you need to:
+1 - Enable 2FA in your Google Security Settings.
+2 - Go to the App Passwords page.
+3 - Select 'Mail' and your device, then click 'Generate' to get a 16-character code.
+");
+            bool useSameEmail = true;
+            bool useSameKey = true;
+            if (!gmailAddress.IsNullOrEmpty())
+                useSameEmail = AnsiConsole.Confirm($"Do you wish to use the current email? {gmailAddress}");
+
+            if (!gmailKey.IsNullOrEmpty())
+                useSameKey = AnsiConsole.Confirm($"Do you wish to use the same password? {gmailKey}");
+
+            if (gmailAddress.IsNullOrEmpty() || !useSameEmail)
+                gmailAddress = AnsiConsole.Ask<string>("Enter your gmail address: ");
+            
+            if (gmailKey.IsNullOrEmpty() || !useSameKey)
+                gmailKey = AnsiConsole.Ask<string>("Enter your 16-character code: ");
+            
+            while (!Validator.ValidateEmail(gmailAddress))
+            {
+                gmailAddress = AnsiConsole.Ask<string>("Enter a valid gmail address: ");
+            }
+
             AnsiConsole.MarkupLine("Select the user you want to send en email to");
             var user = SelectUser();
             var subject = Validator.GetStringInput("Select the [red]subject[/] of the email: ");
             var body = Validator.GetStringInput("Select the [blue]body[/] of the email: ");
+            var name = Validator.GetStringInput("Enter your name: ");
 
-            var email = "santisica29@gmail.com";
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Santi", email));
+            message.From.Add(new MailboxAddress(name, gmailAddress));
             message.To.Add(new MailboxAddress($"{user.Name}", $"{user.Email}"));
             message.Subject = $"{subject} [{user.Category}]";
 
@@ -151,7 +179,7 @@ internal class UserService
             client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
 
             // Note: only needed if the SMTP server requires authentication
-            client.Authenticate(email, "iles jnrv fxfv hgqh ");
+            client.Authenticate(gmailAddress, gmailKey);
 
             client.Send(message);
 

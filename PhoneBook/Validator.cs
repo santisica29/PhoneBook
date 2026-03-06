@@ -21,7 +21,7 @@ public static class Validator
         var email = AnsiConsole.Prompt(
             new TextPrompt<string>("Enter your [green]email[/]: ")
             .Validate(input =>
-            ValidatePhoneNumber(input)
+            ValidateEmail(input)
             ? ValidationResult.Success()
             : ValidationResult.Error("Please enter a valid [red]email[/]")));
 
@@ -46,8 +46,8 @@ public static class Validator
             new TextPrompt<string>(msg)
             .Validate(x =>
             ValidateString(x)
-            ? ValidationResult.Error("Enter a valid string input")
-            : ValidationResult.Success()));
+            ? ValidationResult.Success()
+            : ValidationResult.Error("Enter a valid string input")));
 
         return input.Trim();
     }
