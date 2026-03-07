@@ -11,8 +11,8 @@ namespace PhoneBook;
 internal class UserService
 {
     private static UserController userController = new UserController();
-    private static string gmailAddress = string.Empty;
-    private static string gmailKey = string.Empty;
+    private static string? gmailAddress = null;
+    private static string? gmailKey = null;
     internal static void AddUser()
     {
         var name = Validator.GetStringInput("Enter your name: ");
@@ -133,30 +133,35 @@ internal class UserService
     {
         try
         {
-            AnsiConsole.MarkupLine(@$"You can send an email with a Gmail account.
-For this to work you need to:
+            Panel panel = new(new Rows(
+                new Markup(@"[yellow]You can send an email with a Gmail account.
+For this to work you need to:  
 1 - Enable 2FA in your Google Security Settings.
-2 - Go to the App Passwords page.
-3 - Select 'Mail' and your device, then click 'Generate' to get a 16-character code.
-");
+2 - Go to the App Passwords page.\r\n
+3 - Select 'Mail' and your device, then click 'Generate' to get a 16-character code.[/]
+
+[red]Any email or password entered won't be saved in a database. It will only persist in memory (as soon as you close the app is gone).[/]").Centered())
+);
+            AnsiConsole.Write(panel);
+
+            Console.ReadKey();
             bool useSameEmail = true;
             bool useSameKey = true;
+
             if (!gmailAddress.IsNullOrEmpty())
                 useSameEmail = AnsiConsole.Confirm($"Do you wish to use the current email? {gmailAddress}");
 
             if (!gmailKey.IsNullOrEmpty())
                 useSameKey = AnsiConsole.Confirm($"Do you wish to use the same password? {gmailKey}");
 
-            if (gmailAddress.IsNullOrEmpty() || !useSameEmail)
-                gmailAddress = AnsiConsole.Ask<string>("Enter your gmail address: ");
-            
-            if (gmailKey.IsNullOrEmpty() || !useSameKey)
-                gmailKey = AnsiConsole.Ask<string>("Enter your 16-character code: ");
-            
-            while (!Validator.ValidateEmail(gmailAddress))
-            {
-                gmailAddress = AnsiConsole.Ask<string>("Enter a valid gmail address: ");
-            }
+            gmailAddress ??= Validator.GetEmailInput();
+            gmailKey ??= Validator.GetStringInput("Enter your 16-character code: ");
+
+            if (!useSameEmail)
+                gmailAddress = Validator.GetEmailInput();
+
+            if (!useSameKey)
+                gmailKey = Validator.GetStringInput("Enter your 16-character code: ");
 
             AnsiConsole.MarkupLine("Select the user you want to send en email to");
             var user = SelectUser();
@@ -191,6 +196,7 @@ For this to work you need to:
         catch (Exception ex)
         {
             AnsiConsole.MarkupLine(ex.Message);
+            Console.ReadKey();
         }
     }
 }
