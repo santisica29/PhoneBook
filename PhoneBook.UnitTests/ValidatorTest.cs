@@ -1,6 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-
-namespace PhoneBook.UnitTests;
+﻿namespace PhoneBook.UnitTests;
 
 public class ValidatorTest
 {
@@ -16,7 +14,6 @@ public class ValidatorTest
     [TestCaseSource(nameof(EmailCases))]
     public void CorrectEmailInput_ReturnsTrue(string emailInput, bool expectedResult)
     {
-        //var email = Console.ReadLine();
         var isEmailValid = Validator.ValidateEmail(emailInput);
 
         Assert.That(isEmailValid, Is.EqualTo(expectedResult));
@@ -36,7 +33,6 @@ public class ValidatorTest
     [TestCaseSource(nameof(PhoneNumberCases))]
     public void GivenStringInput_WhenCheckIfInputIsNumberOrHasPlusSign_ThenValueIsCorrect(string phoneNumber, bool expectedResult)
     {
-        //var email = Console.ReadLine();
         var isPhoneNumberValid = Validator.ValidatePhoneNumber(phoneNumber);
 
         Assert.That(isPhoneNumberValid, Is.EqualTo(expectedResult));
@@ -54,7 +50,6 @@ public class ValidatorTest
     [TestCaseSource(nameof(StringCases))]
     public void GivenStringInput_WhenCheckIfInputIsCompatible_ThenValueIsCorrect(string input, bool expectedResult)
     {
-        //var email = Console.ReadLine();
         var isStringValid = Validator.ValidateString(input);
 
         Assert.That(isStringValid, Is.EqualTo(expectedResult));
