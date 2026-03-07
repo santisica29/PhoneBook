@@ -37,6 +37,7 @@ Build with C#/.NET, EF Core, SQL Server, Spectre.Console, Mailkit for the email 
 - Figuring out how to send an email through a C# console app, Mailkit made this surprisingly easy to do.
 - Making unit tests for different validation methods.
 - Learning about migrations, dbContext and package manager console.
+- Parsing enums to string in the migration to the database.
 
 # Own Thoughts About This Project
 
@@ -46,13 +47,13 @@ It had it's challenges but it was very rewarding.
 
 # How to Run 
 
-- You need to have Sql server installed, with local db and you have to use the default method so the db connection can work successfully.
+- You need to have Sql server installed, with local db and you have to use the default name MSSQLLocalDB so the db connection can work successfully.
 
 - When you try to send an email, you need to have a gmail account and a 16 characters code that gmail generates to do it. [Visit this site to do it](https://myaccount.google.com/apppasswords).
 
 # Resources
-[Project idea from The C# Sharp Academy](https://www.thecsharpacademy.com/project/16/phonebook)
-[EF Core Microsoft documentation](https://learn.microsoft.com/en-us/ef/core/)
-[EF Core tutorial](https://www.youtube.com/watch?v=tDiJdthMs1Q&list=PL4G0MUH8YWiDcv8EUWTbDxDlkSndfh-T0)
-[Mail kit package](https://github.com/jstedfast/MailKit)
-And lots of google of course...
+-[Project idea from The C# Sharp Academy](https://www.thecsharpacademy.com/project/16/phonebook)
+-[EF Core Microsoft documentation](https://learn.microsoft.com/en-us/ef/core/)
+-[EF Core tutorial](https://www.youtube.com/watch?v=tDiJdthMs1Q&list=PL4G0MUH8YWiDcv8EUWTbDxDlkSndfh-T0)
+-[Mail kit package](https://github.com/jstedfast/MailKit)
+-And lots of google of course...
