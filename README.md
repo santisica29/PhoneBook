@@ -30,3 +30,29 @@ Build with C#/.NET, EF Core, SQL Server, Spectre.Console, Mailkit for the email 
 - Filter Users by categories.
 - Send an email with your gmail account to any user in your phone's book app (You need a gmail account).
 - Unit tests for validation methods using nUnit framework.
+
+# Challenges
+
+- Using EF Core for the first time and learning it syntaxis.
+- Figuring out how to send an email through a C# console app, Mailkit made this surprisingly easy to do.
+- Making unit tests for different validation methods.
+- Learning about migrations, dbContext and package manager console.
+
+# Own Thoughts About This Project
+
+Overall it was a good experience, I ended up using different frameworks, approaches to coding for the first time.
+Since the app was simple I could focus on learning this new technologies without worrying too much about the app itself.
+It had it's challenges but it was very rewarding.
+
+# How to Run 
+
+- You need to have Sql server installed, with local db and you have to use the default method so the db connection can work successfully.
+
+- When you try to send an email, you need to have a gmail account and a 16 characters code that gmail generates to do it. [Visit this site to do it](https://myaccount.google.com/apppasswords).
+
+# Resources
+[Project idea from The C# Sharp Academy](https://www.thecsharpacademy.com/project/16/phonebook)
+[EF Core Microsoft documentation](https://learn.microsoft.com/en-us/ef/core/)
+[EF Core tutorial](https://www.youtube.com/watch?v=tDiJdthMs1Q&list=PL4G0MUH8YWiDcv8EUWTbDxDlkSndfh-T0)
+[Mail kit package](https://github.com/jstedfast/MailKit)
+And lots of google of course...
