@@ -52,8 +52,8 @@ It had it's challenges but it was very rewarding.
 - When you try to send an email, you need to have a gmail account and a 16 characters code that gmail generates to do it. [Visit this site to do it](https://myaccount.google.com/apppasswords).
 
 # Resources
--[Project idea from The C# Sharp Academy](https://www.thecsharpacademy.com/project/16/phonebook)
--[EF Core Microsoft documentation](https://learn.microsoft.com/en-us/ef/core/)
--[EF Core tutorial](https://www.youtube.com/watch?v=tDiJdthMs1Q&list=PL4G0MUH8YWiDcv8EUWTbDxDlkSndfh-T0)
--[Mail kit package](https://github.com/jstedfast/MailKit)
--And lots of google of course...
+- [Project idea from The C# Sharp Academy](https://www.thecsharpacademy.com/project/16/phonebook)
+- [EF Core Microsoft documentation](https://learn.microsoft.com/en-us/ef/core/)
+- [EF Core tutorial](https://www.youtube.com/watch?v=tDiJdthMs1Q&list=PL4G0MUH8YWiDcv8EUWTbDxDlkSndfh-T0)
+- [Mail kit package](https://github.com/jstedfast/MailKit)
+- And lots of google of course...
